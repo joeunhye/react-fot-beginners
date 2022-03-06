@@ -13,22 +13,23 @@
     <div id="root"></div>
     <script type="text/babel">
         const root = document.querySelector('#root');
-        let counter = 0;
-        function countUp() {
-            counter = counter + 1;
-            render();
+        function App() {
+            const [minutes, setMinutes] = React.useState();
+            const onChange = (e) => {
+                setMinutes(e.target.value)
+            }
+            return (
+                <div>
+                    <h1>Super Converter</h1>
+                    <label htmlFor="minutes">Minutes</label>
+                    <input id="minutes" type="number" placeholder='Minutes' value={minutes} onChange={onChange} />
+                    <h3>You Want to Convert {minutes} </h3>
+                    <label htmlFor="hours">Hours</label>
+                    <input id="hours" type="number" placeholder='Hours' />
+                </div>
+            )
         }
-
-        function render() {
-            ReactDOM.render(<Container />, root)
-        }
-        const Container = () => (
-            <div>
-                <h3>Total clicks : {counter}</h3>
-                <button onClick={countUp}>click me</button>
-            </div>
-        )
-        render()
+        ReactDOM.render(<App />, root)
     </script>
 </body>
 </html>
