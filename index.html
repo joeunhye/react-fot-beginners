@@ -5,37 +5,40 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <script crossorigin src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
-    <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/react@17.0.2/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://unpkg.com/prop-types@15.7.2/prop-types.js"></script>
 </head>
 <body>
     <div id="root"></div>
     <script type="text/babel">
-        const root = document.querySelector('#root');
-        function Btn({text, changeValue}) {
-            console.log(text, 'was rendered')
+        function Btn({text, fontSize = 15}) {
             return <button style={{
                 backgroundColor: 'tomato',
                 color: 'white',
                 padding: '10px 20px',
                 borderRadius: 10,
-                border: 0
-            }} onClick={changeValue}>{text}</button>
+                border: 0,
+                fontSize: fontSize
+            }}>{text}</button>
         }
-        const MenorizedBtn = React.memo(Btn);
-        console.log(MenorizedBtn)
+        //propTypes : prop 타입을 명시해줄 수 있다.
+        Btn.propTypes = {
+            text: PropTypes.string.isRequired,
+            fontSize: PropTypes.number.isRequired,
+        };
         function App() {
             const [value, setValue] = React.useState('Save Changes')
-            const changeValue = () => setValue('Revert Changes')
             return (
                 <div>
-                    <MenorizedBtn text={value} changeValue={changeValue} />
-                    <MenorizedBtn text='Continue' />
+                    <Btn text="Save Changes" fontSize={18}/>
+                    <Btn text="Continue" />
                 </div>
             )
         }
-        ReactDOM.render(<App />, root)
+        const root = document.getElementById("root");
+        ReactDOM.render(<App />, root);
     </script>
 </body>
 </html>
