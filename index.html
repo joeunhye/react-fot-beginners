@@ -5,20 +5,35 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <script crossorigin src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 </head>
 <body>
-    <span>Total clicks : 0</span>
-    <button id="btn">Click!</button>
+    <div id="root"></div>
+    <script type="text/babel">
+        const root = document.querySelector('#root');
+        function Btn({text, big}) {
+            console.log(text, big)
+            return <button style={{
+                backgroundColor: 'tomato',
+                color: 'white',
+                padding: '10px 20px',
+                borderRadius: 10,
+                border: 0,
+                fontSize: big ? 18 : 15
+            }}>{text}</button>
+        }
+        
+        function App() {
+            return (
+                <div>
+                    <Btn text='Save Changes' big={true} />
+                    <Btn text='Continue' big={false} />
+                </div>
+            )
+        }
+        ReactDOM.render(<App />, root)
+    </script>
 </body>
-<script>
-    let counter = 0;
-    const button = document.querySelector('#btn');
-    const span = document.querySelector('span');
-    function handleClick() {
-        console.log('click')
-        counter = counter + 1;
-        span.innerText = `Total clicks : ${counter}`;
-    }
-    button.addEventListener('click', handleClick)
-</script>
 </html>
